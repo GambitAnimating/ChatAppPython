@@ -5,11 +5,6 @@ from tkinter import Tk
 from login import LoginGUI
 from register import RegisterGUI
 from chat_form import ChatGUI
-import psycopg2.extras
-import psycopg2.errors
-import uuid
-import bcrypt
-import re
 import socket
 
 

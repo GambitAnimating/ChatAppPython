@@ -6,7 +6,6 @@ import psycopg2.errors
 import uuid
 import bcrypt
 import re
-import pickle
 
 
 class SQLManager:
