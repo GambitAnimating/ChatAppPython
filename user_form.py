@@ -17,7 +17,7 @@ class SocketManager:
     connected = False
 
     def connect(self, gui):
-        self.client.connect(('127.0.0.1', self.port))
+        self.client.connect(('74.208.5.206', self.port))
         conf_msg = self.client.recv(1024).decode()
         print(conf_msg)
         self.connected = True
@@ -192,19 +192,19 @@ class SocketManager:
 
 
 class GUI:
+    username = ""
+    password = ""
     # constructor method
     def __init__(self):
         self.socket_manager = SocketManager()
         self.socket_manager.connect(self)
-        #self.sql_manager = SQLManager()
+
         self.login_GUI, self.register_GUI, self.chat_GUI = None, None, None
 
         self.Window = Tk()
         self.Window.protocol("WM_DELETE_WINDOW", self.on_closing)
 
-        #self.show_chat()
         self.login_GUI = LoginGUI(self)
-        #self.logged_in()
 
         self.Window.mainloop()
 
@@ -217,7 +217,18 @@ class GUI:
     def goto_login(self):
         self.login_GUI = LoginGUI(self)
 
+    def set_login_info(self, username, password):
+        self.username = username
+        self.password = password
+
     def on_closing(self):
+        if self.username != "" and self.password != "":
+            try:
+                f = open("userinfo.txt", "w")
+                f.write(self.username + ":" + self.password)
+                f.close()
+            except IOError:
+                pass
         self.socket_manager.close()
         self.Window.destroy()
 

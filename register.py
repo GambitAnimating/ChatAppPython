@@ -147,6 +147,7 @@ class RegisterGUI:
     def try_register(self, username, email, password):
         register_result, error_msg = self.parent.socket_manager.try_register(username, email, password)
         if register_result:
+            self.parent.set_login_info(username, password)
             self.remove_register_GUI()
             self.parent.show_chat()
             print("Registered successfully")

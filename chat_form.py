@@ -124,6 +124,7 @@ class ChatGUI:
         # into the gui window
         scrollbar.place(relheight=1.01,
                         relx=1, rely=1.003, anchor=S)
+        self.textCons.config(yscrollcommand=scrollbar.set)
 
         scrollbar.config(command=self.textCons.yview)
         self.textCons.config(state=DISABLED)

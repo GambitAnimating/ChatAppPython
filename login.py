@@ -121,11 +121,14 @@ class LoginGUI:
         # set the focus of the cursor
         self.user_textbox.focus()
 
+        self.retrieve_login_info()
+
     def try_login(self, username, password):
         print(username)
 
         login_result, error_msg = self.parent.socket_manager.try_login(username, password)
         if login_result:
+            self.parent.set_login_info(username, password)
             self.remove_login_GUI()
             self.parent.show_chat()
         else:
@@ -136,6 +139,16 @@ class LoginGUI:
 
     def remove_login_GUI(self):
         self.login_frame.destroy()
+
+    def retrieve_login_info(self):
+        try:
+            f = open("userinfo.txt", "r");
+            info = f.read().split(":")
+            self.user_text.set(info[0])
+            self.password_text.set(info[1])
+        except IOError:
+            pass
+
 
     def show_hide_password(self):
         if self.PASSWORD_SHOWN:

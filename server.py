@@ -9,7 +9,7 @@ import re
 
 
 class SQLManager:
-    conn = psycopg2.connect(database="registration_test", user="jedgould", password="", host="localhost", port="5432")
+    conn = psycopg2.connect(database="root_db", user="root", password="", host="localhost", port="5432")
 
     def try_login(self, username, password):
         cur = self.conn.cursor()
@@ -128,7 +128,7 @@ class SocketManager():
 
         while connected:
             try:
-                response_data = self.recvjson(conn)
+                response_data = self.recvjson(conn, self)
                 if response_data is None:
                     break
 
@@ -198,10 +198,11 @@ class SocketManager():
         #     conn.close()
 
     @staticmethod
-    def recvjson(conn):
+    def recvjson(conn, caller):
         header = conn.recv(4)
         # If the header is empty, the connection has been closed
         if not header:
+            caller.broadcast_message(message=(names[conn] + " has left."))
             print("The connection has been closed")
             clients.remove(conn)
             return None
