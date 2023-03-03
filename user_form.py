@@ -1,5 +1,7 @@
 import json
 import threading
+import tkinter as tk
+from tkinter import ttk
 from tkinter import Tk
 
 from login import LoginGUI
@@ -202,6 +204,8 @@ class GUI:
         self.login_GUI, self.register_GUI, self.chat_GUI = None, None, None
 
         self.Window = Tk()
+        self.Window.tk.call("source", "azure.tcl")
+        self.Window.tk.call("set_theme", "dark")
         self.Window.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         self.login_GUI = LoginGUI(self)

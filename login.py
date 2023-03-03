@@ -52,7 +52,7 @@ class LoginGUI:
                               rely=.5, anchor=CENTER)
 
         self.user_text = StringVar()
-        self.user_textbox = Entry(self.username_frame, textvariable=self.user_text,
+        self.user_textbox = ttk.Entry(self.username_frame, textvariable=self.user_text,
                                   font=(FONT, 14))
 
         self.user_textbox.place(relwidth=0.5,
@@ -73,7 +73,7 @@ class LoginGUI:
                                   rely=.5, anchor=CENTER)
 
         self.password_text = StringVar()
-        self.password_textbox = Entry(self.password_frame, textvariable=self.password_text, show="*",
+        self.password_textbox = ttk.Entry(self.password_frame, textvariable=self.password_text, show="*",
                                       font=(FONT, 14))
 
         self.show_hide_canvas = Canvas(self.password_frame)
@@ -102,17 +102,16 @@ class LoginGUI:
 
         # create a Continue Button
         # along with action
-        self.login_button = Button(self.login_frame,
+        self.login_button = ttk.Button(self.login_frame,
                                    text="LOGIN",
-                                   font=(FONT, 14, "bold"),
-                                   command=lambda: self.try_login(self.user_text.get(), self.password_text.get()))
+                                   style='Accent.TButton', command=lambda: self.try_login(self.user_text.get(), self.password_text.get()))
 
         self.login_button.place(relx=0.5,
                                 rely=0.75, anchor=CENTER)
 
-        self.register_button = Button(self.login_frame,
+        self.register_button = ttk.Button(self.login_frame,
                                    text="Register",
-                                   font=(FONT, 8, "bold"),
+                                      style='TButton',
                                    command=lambda: self.parent.goto_register())
 
         self.register_button.place(relx=0.25,

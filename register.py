@@ -53,7 +53,7 @@ class RegisterGUI:
                               rely=.5, anchor=CENTER)
 
         self.user_text = StringVar()
-        self.user_textbox = Entry(self.username_frame, textvariable=self.user_text,
+        self.user_textbox = ttk.Entry(self.username_frame, textvariable=self.user_text,
                                   font=(FONT, 14))
 
         self.user_textbox.place(relwidth=0.5,
@@ -74,7 +74,7 @@ class RegisterGUI:
                                rely=.5, anchor=CENTER)
 
         self.email_text = StringVar()
-        self.email_textbox = Entry(self.email_frame, textvariable=self.email_text,
+        self.email_textbox = ttk.Entry(self.email_frame, textvariable=self.email_text,
                                    font=(FONT, 14))
 
         self.email_textbox.place(relwidth=0.5,
@@ -95,7 +95,7 @@ class RegisterGUI:
                                   rely=.5, anchor=CENTER)
 
         self.password_text = StringVar()
-        self.password_textbox = Entry(self.password_frame, textvariable=self.password_text, show="*",
+        self.password_textbox = ttk.Entry(self.password_frame, textvariable=self.password_text, show="*",
                                       font=(FONT, 14))
 
         self.show_hide_canvas = Canvas(self.password_frame)
@@ -124,18 +124,18 @@ class RegisterGUI:
 
         # create a Continue Button
         # along with action
-        self.register_button = Button(self.register_frame,
+        self.register_button = ttk.Button(self.register_frame,
                                       text="REGISTER",
-                                      font=(FONT, 14, "bold"),
+                                      style='Accent.TButton',
                                       command=lambda: self.try_register(self.user_text.get(), self.email_text.get(),
                                                                         self.password_text.get()))
 
         self.register_button.place(relx=0.5,
                                    rely=0.75, anchor=CENTER)
 
-        self.login_button = Button(self.register_frame,
+        self.login_button = ttk.Button(self.register_frame,
                                       text="Login",
-                                      font=(FONT, 8, "bold"),
+                                       style='TButton',
                                       command=lambda: self.parent.goto_login())
 
         self.login_button.place(relx=0.25,

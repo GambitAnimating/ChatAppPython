@@ -202,7 +202,9 @@ class SocketManager():
         header = conn.recv(4)
         # If the header is empty, the connection has been closed
         if not header:
-            caller.broadcast_message(message=(names[conn] + " has left."))
+            if conn in names:
+                leaveMsg = (names[conn])
+                caller.broadcast_message(message=leaveMsg + " has left.")
             print("The connection has been closed")
             clients.remove(conn)
             return None

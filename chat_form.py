@@ -92,7 +92,7 @@ class ChatGUI:
         self.chat_messagebox_frame.place(relheight=.1, relwidth=1, relx=.5, rely=1, anchor=S)
 
         self.chat_text = StringVar()
-        self.chat_messagebox = Entry(self.chat_messagebox_frame, textvariable=self.chat_text,
+        self.chat_messagebox = ttk.Entry(self.chat_messagebox_frame, textvariable=self.chat_text,
                                   font=(FONT, 14))
         # Add desired size to dict
         font_dict[self.chat_messagebox] = .022
@@ -118,7 +118,7 @@ class ChatGUI:
         self.textCons.config(cursor="arrow")
 
         # create a scroll bar
-        scrollbar = Scrollbar(self.textCons)
+        scrollbar = ttk.Scrollbar(self.textCons, style='Vertical.TScrollbar')
 
         # place the scroll bar
         # into the gui window
