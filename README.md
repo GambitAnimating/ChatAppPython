@@ -1,9 +1,8 @@
 # User Manual
-## Installing
-Once you download or clone the project, you need to install the needed packages.
+## Installation Steps For Client Only
+Once you download or cloned the project, you need to install the needed packages.
 This is done easiest with pip [Installation - pip documentation v23.0.1 (pypa.io)](https://pip.pypa.io/en/stable/installation/)
 ### Unix/Mac 
-
  - python3 -m pip install "Pillow"
  - python3 -m pip install "bcrypt"
 ### Windows
@@ -24,6 +23,8 @@ Simply run the application by running `GouldJedFinalProject.py`
 
 #### The final screen you'll see is the Chat Window
 - Very simple to use, just type in the chat box and press enter to chat with what you want.
+
+![img](preview_imgs/Screenshot%202023-03-12%20at%206.38.09%20PM.png)
 
 ### Exiting
 - To stop the application, just click the x button on the window and it'll terminate. Your user login information will be saved and used next time you open the application for ease of use.

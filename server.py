@@ -106,7 +106,6 @@ class SocketManager():
 
                 # append the name and client
                 # to the respective list
-                clients.append(conn)
 
                 conn.sendall('Connection successful!'.encode(FORMAT))
 
@@ -154,8 +153,11 @@ class SocketManager():
                     self.sendjson(conn, response_json)
 
                 if packet_type == "JOINED_SERVER":
-                    self.messages += str(names[conn]) + " has joined!" + '\n\n'
+                    clients.append(conn)
+                    joined_message = str(names[conn]) + " has joined!"
+                    self.messages += joined_message + '\n\n'
                     response_json = {"type": "OLD_MESSAGES", "messages": self.messages}
+                    self.broadcast_all_except_sender(conn, joined_message, False)
                     if self.messages != "":
                         self.sendjson(conn, response_json)
 
@@ -166,11 +168,12 @@ class SocketManager():
 
             except ConnectionResetError:
                 print("Connection was reset by the client")
-                clients.remove(conn)
+                if conn in clients:
+                    clients.remove(conn)
                 connected = False
 
-    def broadcast_message(self, sender=None, message=None):
-        if sender is not None and sender in names:
+    def broadcast_message(self, sender=None, message=None, sendSenderName=True):
+        if sender is not None and sender in names and sendSenderName:
             message = names[sender] + ": " + message
 
         message += '\n\n';
@@ -180,6 +183,19 @@ class SocketManager():
         response_json = {"type": "CHAT_MESSAGE", "message": message}
 
         for client in clients:
+            self.sendjson(client, response_json)
+
+    def broadcast_all_except_sender(self, sender=None, message=None, sendSenderName=True):
+        if sender is not None and sender in names and sendSenderName:
+            message = names[sender] + ": " + message
+
+        message += '\n\n';
+
+        response_json = {"type": "CHAT_MESSAGE", "message": message}
+
+        for client in clients:
+            if client == sender:
+                continue
             self.sendjson(client, response_json)
 
     @staticmethod
@@ -206,7 +222,8 @@ class SocketManager():
                 leaveMsg = (names[conn])
                 caller.broadcast_message(message=leaveMsg + " has left.")
             print("The connection has been closed")
-            clients.remove(conn)
+            if conn in clients:
+                clients.remove(conn)
             return None
 
         json_length = int.from_bytes(header, 'big')
@@ -215,8 +232,9 @@ class SocketManager():
         while len(message) < json_length:
             chunk = conn.recv(json_length - len(message))
             if chunk == b'':
-                raise RuntimeError("Socket connection broken")
                 clients.remove(conn)
+                return None
+
             message += chunk
         response_data = json.loads(message.decode())
         return response_data
