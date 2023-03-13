@@ -2,23 +2,28 @@ from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk, Image
 
-BG_GRAY = "#ABB2B9"
-BG_COLOR = "#17202A"
-TEXT_COLOR = "#EAECEE"
-FONT = "Arial"
+BG_GRAY = "#ABB2B9"  # Gray Color
+BG_COLOR = "#17202A"  # BG Color
+TEXT_COLOR = "#EAECEE"  # Text Color
+FONT = "Arial"  # Font
 
-EYE_VISIBLE_IMG = Image.open("Images/eye.png")
-EYE_INVISIBLE_IMG = Image.open("Images/eye-invisible.png")
+EYE_VISIBLE_IMG = Image.open("Images/eye.png")  # Image for visible eye
+EYE_INVISIBLE_IMG = Image.open("Images/eye-invisible.png")  # Image for visible eye
 
 
 class RegisterGUI:
-    PASSWORD_SHOWN = False
-
+    PASSWORD_SHOWN = False # Is password currently shown
+    """
+    Init variables setting parent to user_form and setting up the GUI for this window
+    """
     def __init__(self, user_form):
         self.parent = user_form
         self.Window = user_form.Window
         self.show_register_GUI()
 
+    """
+    Create the register GUI, callbacks
+    """
     def show_register_GUI(self):
         # set the title
         self.Window.title("Register")
@@ -144,22 +149,31 @@ class RegisterGUI:
         # set the focus of the cursor
         self.user_textbox.focus()
 
+    """
+    Try registering with the info in the entries
+    """
     def try_register(self, username, email, password):
+        # get the result of success or fail and error message back from register attempt
         register_result, error_msg = self.parent.socket_manager.try_register(username, email, password)
+        # if success remove this window and show the chat window and save the login info to text
         if register_result:
             self.parent.set_login_info(username, password)
             self.remove_register_GUI()
             self.parent.show_chat()
             print("Registered successfully")
+        # if failure set the error message to the label
         else:
             self.login_error_text.set(error_msg)
 
-    def hide_register_GUI(self):
-        self.register_frame.place_forget()
-
+    """
+    Destroy the register frame
+    """
     def remove_register_GUI(self):
         self.register_frame.destroy()
 
+    """
+    Called when a user clicks the eye button next to password, shows or hides the password
+    """
     def show_hide_password(self):
         if self.PASSWORD_SHOWN:
             img = EYE_VISIBLE_IMG.resize((30, 30), Image.BILINEAR)
