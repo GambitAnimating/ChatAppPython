@@ -6,10 +6,10 @@ This is done easiest with pip [Installation - pip documentation v23.0.1 (pypa.io
  - python3 -m pip install "Pillow"
  - python3 -m pip install "bcrypt"
 ### Windows
-- py-m pip install "Pillow"
+- py -m pip install "Pillow"
 - py -m pip install "bcrypt"
 ## How to use
-Simply run the application by running `GouldJedFinalProject.py`
+Simply run the application by launching from `GouldJedFinalProject.py`
 #### The first screen you'll be greated by is the Login Screen
 - From this screen simply Login if you have an account or click the register button if you don't.
 
