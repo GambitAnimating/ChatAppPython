@@ -1,3 +1,4 @@
+# SERVER IS DOWN FOR NOW but you can still look at the code
 # User Manual
 ## Installation Steps For Client Only
 Once you download or cloned the project, you need to install the needed packages.
